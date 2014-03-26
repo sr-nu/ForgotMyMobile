@@ -19,6 +19,8 @@ public class SmsReceiver extends BroadcastReceiver{
 
     public void onReceive( Context context, Intent intent )
     {
+        
+    	Toast.makeText(context,"service on receive",Toast.LENGTH_LONG).show();
 // Get the SMS map from Intent
         Bundle extras = intent.getExtras();
         String messages = "";
