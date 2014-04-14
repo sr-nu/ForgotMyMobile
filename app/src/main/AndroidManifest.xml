@@ -19,8 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+       <service android:enabled="true" android:name="com.forgotMyMobile.BackgroundService" />
        <receiver android:name="com.forgotMyMobile.SmsReceiver" android:exported="true" >
-            <intent-filter android:priority="999">
+            <intent-filter android:priority="99999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>

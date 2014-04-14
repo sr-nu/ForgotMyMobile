@@ -40,11 +40,11 @@ public class SmsReceiver extends BroadcastReceiver{
                     Log.i("SMSReceiver", "sms received");
                   
                     //make a call to service to respond to the SMS
-                    
-                    
-                   //                    respond(context, replyToAddress);
-                   // this.abortBroadcast();
+                    Intent i = new Intent(context,BackgroundService.class);
+                    i.putExtra(BackgroundService.RESPOND_TO, address);
+                    context.startService(i);
                     Toast.makeText(context, "Control Msg"+address, Toast.LENGTH_SHORT).show();
+                    this.abortBroadcast();
                 } else {
                     Toast.makeText(context, "Normal Msg"+address, Toast.LENGTH_SHORT).show();
                 }

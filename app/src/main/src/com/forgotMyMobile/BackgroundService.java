@@ -1,5 +1,6 @@
 package com.forgotMyMobile;
 
+import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -9,10 +10,16 @@ import android.net.Uri;
 import android.telephony.SmsManager;
 import android.util.Log;
 
-public class BackgroundService {
-    public void respond(Context context, String replyToAddress){
+public class BackgroundService extends IntentService {
+    public static final String RESPOND_TO = "RESPOND_TO";
+
+	public BackgroundService() {
+		super("Background service");
+	}
+
+	public void respond(Context context, String replyToAddress){
         ContentResolver contentResolver = context.getContentResolver();
-        Cursor cursor = contentResolver.query( Uri.parse("content://sms/inbox"), null, null, null, null);
+        Cursor cursor = contentResolver.query( Uri.parse("content://sms/inbox"), null, "read = 0", null, null);
 
         int indexBody = cursor.getColumnIndex("BODY");
         int indexAddr = cursor.getColumnIndex("ADDRESS");
@@ -21,15 +28,22 @@ public class BackgroundService {
 
         String messages= "";
 
+    	sendSMS(replyToAddress,cursor.getCount()+"",context);
+
+        
         do
         {
-            String str = "Sender: " + cursor.getString( indexAddr ) + "\n" + cursor.getString( indexBody );
-            messages += str;
+        	
+//        	sendSMS(replyToAddress,cursor.getString(indexAddr)+": "+cursor.getString(indexBody),context);
+        	
+//            String str = cursor.getString( indexAddr );
+//            		+ "\n" + cursor.getString( indexBody );
+//            messages += str;
         }
         while( cursor.moveToNext() );
 
 
-        sendSMS(replyToAddress,messages,context);
+        
 
     }
 
@@ -43,5 +57,10 @@ public class BackgroundService {
         sms.sendTextMessage(phoneNumber, null, message, pi, null);
     }
 
-
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		Log.e("Background Service","Intent received");
+		String respondTo = intent.getStringExtra(RESPOND_TO);
+		respond(this.getApplicationContext(),respondTo);
+	}
 }

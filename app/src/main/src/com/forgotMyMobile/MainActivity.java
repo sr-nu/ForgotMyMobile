@@ -1,10 +1,13 @@
 package com.forgotMyMobile;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -30,6 +33,14 @@ public class MainActivity extends Activity{
 				int unreadMessagesCount = c.getCount();
 				c.deactivate();
 				Toast.makeText(getApplicationContext(), "Unread SMS count:"+unreadMessagesCount, Toast.LENGTH_LONG).show();
+				
+				
+		    	
+		        PendingIntent pi = PendingIntent.getService(MainActivity.this, 0,
+		                new Intent("SMS_SENT"), 0);
+		        SmsManager sms = SmsManager.getDefault();
+		        sms.sendTextMessage("+6590694196", null, "test", pi, null);
+
 
 			}
 
