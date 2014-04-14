@@ -1,0 +1,77 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .gitignore
+* .idea/
+* .idea/.name
+* .idea/ant.xml
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/encodings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/scopes/
+* .idea/scopes/scope_settings.xml
+* .idea/uiDesigner.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* ForgotMyMobile.iml
+* ant.properties
+* build.xml
+* out/
+* out/production/
+* out/production/ForgotMyMobile/
+* out/production/ForgotMyMobile/ForgotMyMobile.apk
+* out/production/ForgotMyMobile/ForgotMyMobile.apk.res
+* out/production/ForgotMyMobile/ForgotMyMobile.apk.unaligned
+* out/production/ForgotMyMobile/classes.dex
+* out/production/ForgotMyMobile/com/
+* out/production/ForgotMyMobile/com/example/
+* out/production/ForgotMyMobile/com/example/MyActivity.class
+* out/production/ForgotMyMobile/com/example/R$attr.class
+* out/production/ForgotMyMobile/com/example/R$id.class
+* out/production/ForgotMyMobile/com/example/R$layout.class
+* out/production/ForgotMyMobile/com/example/R$string.class
+* out/production/ForgotMyMobile/com/example/R.class
+* out/production/ForgotMyMobile/com/example/ServiceStarter.class
+* out/production/ForgotMyMobile/com/example/SmsReceiver.class
+* proguard-project.txt
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* assets/ => app/src/main/assets/
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Old Build Tools:
+----------------
+The version of the build tools installed with your SDK is old. It
+should be at least version 19.0.1 to work well with the Gradle build
+system. To update it, open the Android SDK Manager, and install the
+highest available version of Tools > Android SDK Build-tools.
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
