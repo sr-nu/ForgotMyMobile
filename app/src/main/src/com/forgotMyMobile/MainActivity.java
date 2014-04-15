@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CallLog;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
@@ -31,8 +32,16 @@ public class MainActivity extends Activity{
 
 				Cursor c = getContentResolver().query(SMS_INBOX, null, "read = 0", null, null);
 				int unreadMessagesCount = c.getCount();
-				c.deactivate();
-				Toast.makeText(getApplicationContext(), "Unread SMS count:"+unreadMessagesCount, Toast.LENGTH_LONG).show();
+				c.close();
+				Toast.makeText(getApplicationContext(), "Unread SMS count:"+unreadMessagesCount, Toast.LENGTH_SHORT).show();
+				
+				
+				String[] projection = { CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER, CallLog.Calls.TYPE, CallLog.Calls.DATE };
+		         String where = CallLog.Calls.TYPE+"="+CallLog.Calls.MISSED_TYPE+" AND "+ CallLog.Calls.NEW + "=1" ;          
+		         Cursor cursor = getContentResolver().query(CallLog.Calls.CONTENT_URI, projection ,where, null, null);
+		         Toast.makeText(getApplicationContext(), "Missed call count:"+cursor.getCount(), Toast.LENGTH_LONG).show();
+		         cursor.close();
+
 			}
 
 		};

@@ -33,7 +33,7 @@ public class BackgroundService extends IntentService {
 	private String getMissedCallDetails(Context context) {
 		String messages="";
 		String[] projection = { CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER, CallLog.Calls.TYPE, CallLog.Calls.DATE };
-         String where = CallLog.Calls.TYPE+"="+CallLog.Calls.MISSED_TYPE+" AND "+CallLog.Calls.TYPE+"="+CallLog.Calls.NEW;          
+         String where = CallLog.Calls.TYPE+"="+CallLog.Calls.MISSED_TYPE+" AND "+ CallLog.Calls.NEW + "=1" ;          
          Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, projection ,where, null, null);
          
          if (!cursor.moveToFirst() ) {
