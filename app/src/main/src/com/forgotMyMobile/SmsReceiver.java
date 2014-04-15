@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
@@ -32,7 +33,10 @@ public class SmsReceiver extends BroadcastReceiver{
                 String body = sms.getMessageBody();
                 String address = sms.getOriginatingAddress();
 
-                if (body.contains("1234")) {
+        		int passcode = PreferenceManager.getDefaultSharedPreferences(context).getInt("PASSCODE", 0);
+                
+                
+                if (body.contains(String.valueOf(passcode))) {
                     Log.i("SMSReceiver", "sms received");
                   
                     //make a call to service to respond to the SMS
