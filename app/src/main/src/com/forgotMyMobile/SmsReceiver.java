@@ -15,6 +15,8 @@ public class SmsReceiver extends BroadcastReceiver{
 
 	public static final String SMS_EXTRA_NAME = "pdus";
 
+	private static final String TAG = "SmsReceiver";
+
     final SmsManager sms = SmsManager.getDefault();
 
     public void onReceive( Context context, Intent intent )
@@ -34,8 +36,7 @@ public class SmsReceiver extends BroadcastReceiver{
                 String body = sms.getMessageBody();
                 String address = sms.getOriginatingAddress();
 
-        		int passcode = PreferenceManager.getDefaultSharedPreferences(context).getInt(PASSCODE, 0);
-                
+        		int passcode = PreferenceManager.getDefaultSharedPreferences(context).getInt(PASSCODE, 0);                
                 
                 if (body != null && body.trim().contains(String.valueOf(passcode))) {
                     Log.i("SMSReceiver", "sms received");
@@ -44,10 +45,10 @@ public class SmsReceiver extends BroadcastReceiver{
                     Intent i = new Intent(context,BackgroundService.class);
                     i.putExtra(BackgroundService.RESPOND_TO, address);
                     context.startService(i);
-                    Toast.makeText(context, "Control Msg"+address, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Control Msg from:"+address, Toast.LENGTH_SHORT).show();
                     this.abortBroadcast();
                 } else {
-                    Toast.makeText(context, "Normal Msg"+address, Toast.LENGTH_SHORT).show();
+                    Log.i(TAG, "Normal message received from:"+address);
                 }                	
             }
         }

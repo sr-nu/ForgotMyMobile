@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends Activity{
 	public static final String PASSCODE = "PASSCODE";
@@ -39,6 +40,10 @@ public class MainActivity extends Activity{
 					Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext()).edit();
 					editor.putInt(PASSCODE, Integer.parseInt(passcode));
 					editor.commit();
+					
+					Toast.makeText(MainActivity.this, "Passcode saved successfully!", Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(MainActivity.this, "Please set a valid Passcode.", Toast.LENGTH_LONG).show();
 				}
 			}
 			
