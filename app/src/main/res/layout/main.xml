@@ -15,6 +15,7 @@
               android:layout_marginTop="250dp"
               android:layout_margin="2dip" 
               android:singleLine="true"
+              android:selectAllOnFocus="true"
               android:hint="@string/passcodeHint"/>
     
     <TextView android:id="@+id/autoFwdLbl"

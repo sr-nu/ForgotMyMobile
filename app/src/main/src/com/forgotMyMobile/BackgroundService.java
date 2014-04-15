@@ -15,7 +15,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 
 public class BackgroundService extends IntentService {
-    private static final String TIMESTAMP_FORMAT = "dd-MM-yy hh:mm:ss";
+    private static final String TIMESTAMP_FORMAT = "dd/MM/yy hh:mm:ss";
 	public static final String RESPOND_TO = "RESPOND_TO";
 	private static final String TAG = "BackgroundService";
 
