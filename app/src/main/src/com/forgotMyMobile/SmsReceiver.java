@@ -12,9 +12,7 @@ import android.widget.Toast;
 
 public class SmsReceiver extends BroadcastReceiver{
     private static final String PASSCODE = "PASSCODE";
-
 	public static final String SMS_EXTRA_NAME = "pdus";
-
 	private static final String TAG = "SmsReceiver";
 
     final SmsManager sms = SmsManager.getDefault();
@@ -46,7 +44,6 @@ public class SmsReceiver extends BroadcastReceiver{
                     i.putExtra(BackgroundService.RESPOND_TO, address);
                     context.startService(i);
                     Toast.makeText(context, "Control Msg from:"+address, Toast.LENGTH_SHORT).show();
-                    this.abortBroadcast();
                 } else {
                     Log.i(TAG, "Normal message received from:"+address);
                 }                	

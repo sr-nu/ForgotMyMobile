@@ -101,7 +101,7 @@ public class BackgroundService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		Log.e("Background Service","Intent received");
+		Log.i("Background Service","Intent received");
 		String respondTo = intent.getStringExtra(RESPOND_TO);
 		respond(this.getApplicationContext(),respondTo);
 	}
