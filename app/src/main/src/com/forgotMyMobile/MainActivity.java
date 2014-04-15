@@ -3,6 +3,7 @@ package com.forgotMyMobile;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity{
@@ -21,6 +23,32 @@ public class MainActivity extends Activity{
 		this.setContentView(R.layout.main);
 		Button smsListButton = (Button) findViewById(R.id.UpdateList);
 		smsListButton.setOnClickListener(fetchSMSListListener());
+		
+		Button passCodeButton = (Button) findViewById(R.id.setPasscode);
+		passCodeButton.setOnClickListener(setPassCodeListener());
+		
+		int passcode = getPreferences(MODE_PRIVATE).getInt("PASSCODE", 0);
+		EditText passCodeView = (EditText) MainActivity.this.findViewById(R.id.passcode);
+		passCodeView.setText(String.valueOf(passcode));
+	}
+
+	private OnClickListener setPassCodeListener() {
+		return new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+			EditText passCodeView = (EditText) MainActivity.this.findViewById(R.id.passcode);
+			String passcode = passCodeView.getText().toString();
+			
+				if( passcode != null && !passcode.trim().isEmpty()) {
+					
+					Editor editor = getPreferences(MODE_PRIVATE).edit();
+					editor.putInt("PASSCODE", Integer.parseInt(passcode));
+					editor.commit();
+				}
+			}
+			
+		};
 	}
 
 	private OnClickListener fetchSMSListListener() {
