@@ -15,14 +15,21 @@ public final class R {
     }
     public static final class id {
         public static final int MainLayout=0x7f050000;
-        public static final int passcode=0x7f050001;
-        public static final int setPasscode=0x7f050002;
+        public static final int autoForward=0x7f050004;
+        public static final int autoFwdLbl=0x7f050003;
+        public static final int passcode=0x7f050002;
+        public static final int passcodeLbl=0x7f050001;
+        public static final int savePreferences=0x7f050005;
     }
     public static final class layout {
         public static final int main=0x7f030000;
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int set_passcode=0x7f040001;
+        public static final int enableAutoFwd=0x7f040002;
+        public static final int enableAutoFwdHint=0x7f040003;
+        public static final int passcode=0x7f040004;
+        public static final int passcodeHint=0x7f040005;
+        public static final int savePreferences=0x7f040001;
     }
 }

@@ -3,17 +3,33 @@
               android:orientation="vertical" android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:id="@+id/MainLayout"
               android:background="@android:color/background_light">
-
+              
+    <TextView android:id="@+id/passcodeLbl"
+        	  android:text="@string/passcode"
+        	  android:layout_height="wrap_content"
+        	  android:layout_width="match_parent"/>
     <EditText android:id="@+id/passcode" 
-        	  android:layout_height="50dp"
+        	  android:layout_height="wrap_content"
               android:layout_width="match_parent"
               android:inputType="number"
               android:layout_marginTop="250dp"
-              android:layout_margin="2dip" />
+              android:layout_margin="2dip" 
+              android:singleLine="true"
+              android:hint="@string/passcodeHint"/>
     
-    <Button android:id="@+id/setPasscode"
+    <TextView android:id="@+id/autoFwdLbl"
+        	  android:text="@string/enableAutoFwd"
+        	  android:layout_height="wrap_content"
+        	  android:layout_width="match_parent"
+        	  />
+    <CheckBox android:id="@+id/autoForward"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="@string/enableAutoFwdHint"/>
+    
+   	<Button android:id="@+id/savePreferences"
         	android:layout_height="wrap_content"
         	android:layout_width="match_parent" 
-			android:text="@string/set_passcode"/>
+			android:text="@string/savePreferences"/>
     
 </LinearLayout>
