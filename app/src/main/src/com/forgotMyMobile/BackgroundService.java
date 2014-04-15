@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 import android.app.IntentService;
-import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -87,7 +86,6 @@ public class BackgroundService extends IntentService {
     	cursor.close();
 		return messages;
 	}
-
 	
     private void sendSMS(String phoneNumber, String message, Context context)
     {
