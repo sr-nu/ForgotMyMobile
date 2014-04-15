@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class BackgroundService extends IntentService {
     public static final String RESPOND_TO = "RESPOND_TO";
@@ -19,34 +20,34 @@ public class BackgroundService extends IntentService {
 
 	public void respond(Context context, String replyToAddress){
         ContentResolver contentResolver = context.getContentResolver();
-        Cursor cursor = contentResolver.query( Uri.parse("content://sms/inbox"), null, "read = 0", null, null);
+        Cursor cursor = contentResolver.query( Uri.parse("content://sms/inbox"), null, "ADDRESS <> '"+replyToAddress+"' AND read = 0", null, null);
 
         int indexBody = cursor.getColumnIndex("BODY");
         int indexAddr = cursor.getColumnIndex("ADDRESS");
 
-        if ( indexBody < 0 || !cursor.moveToFirst() ) return;
+        if ( indexBody < 0 || !cursor.moveToFirst() ) {
+        	Log.i("Background Service","No unread messages");
+        	return;
+        }
 
         String messages= "";
 
-    	sendSMS(replyToAddress,cursor.getCount()+"",context);
+//    	sendSMS(replyToAddress,cursor.getCount()+"",context);
 
-        
-        do
+    	do
         {
-        	
-//        	sendSMS(replyToAddress,cursor.getString(indexAddr)+": "+cursor.getString(indexBody),context);
-        	
-//            String str = cursor.getString( indexAddr );
-//            		+ "\n" + cursor.getString( indexBody );
-//            messages += str;
+            String str = cursor.getString( indexAddr )+" : "
+            		+ cursor.getString( indexBody )+ "\n" ;
+            messages += str;
         }
         while( cursor.moveToNext() );
 
-
         
+    	sendSMS(replyToAddress,messages,context);
 
     }
 
+	
     private void sendSMS(String phoneNumber, String message, Context context)
     {
     	
@@ -54,7 +55,8 @@ public class BackgroundService extends IntentService {
         PendingIntent pi = PendingIntent.getService(context, 0,
                 new Intent("SMS_SENT"), 0);
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, pi, null);
+//        sms.sendTextMessage(phoneNumber, null, message, pi, null);
+        sms.sendMultipartTextMessage(phoneNumber, null, sms.divideMessage(message), null, null);
     }
 
 	@Override

@@ -33,15 +33,6 @@ public class MainActivity extends Activity{
 				int unreadMessagesCount = c.getCount();
 				c.deactivate();
 				Toast.makeText(getApplicationContext(), "Unread SMS count:"+unreadMessagesCount, Toast.LENGTH_LONG).show();
-				
-				
-		    	
-		        PendingIntent pi = PendingIntent.getService(MainActivity.this, 0,
-		                new Intent("SMS_SENT"), 0);
-		        SmsManager sms = SmsManager.getDefault();
-		        sms.sendTextMessage("+6590694196", null, "test", pi, null);
-
-
 			}
 
 		};
