@@ -52,7 +52,7 @@ public class BackgroundService extends IntentService {
      			Date date = new Date(cursor.getLong(indexDate));
      			dateString = new SimpleDateFormat("dd-MM-yy hh:mm:ss").format(date);
      		}
-            String str = cursor.getString( indexName )+" : "+ cursor.getString( indexNumber )+ ":"+ dateString + "\n" ;
+            String str = cursor.getString( indexName )+" - "+ cursor.getString( indexNumber )+ "-"+ dateString + "\n" ;
             messages += str;
         }
         while( cursor.moveToNext() );
