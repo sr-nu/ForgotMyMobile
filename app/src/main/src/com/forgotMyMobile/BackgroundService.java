@@ -2,6 +2,7 @@ package com.forgotMyMobile;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import android.app.IntentService;
 import android.content.ContentResolver;
@@ -14,7 +15,9 @@ import android.telephony.SmsManager;
 import android.util.Log;
 
 public class BackgroundService extends IntentService {
-    public static final String RESPOND_TO = "RESPOND_TO";
+    private static final String TIMESTAMP_FORMAT = "dd-MM-yy hh:mm:ss";
+	public static final String RESPOND_TO = "RESPOND_TO";
+	private static final String TAG = "BackgroundService";
 
 	public BackgroundService() {
 		super("Background service");
@@ -49,9 +52,9 @@ public class BackgroundService extends IntentService {
      		String dateString ="";
      		if(indexDate >=0 && cursor.getLong(indexDate) > 0 ) {
      			Date date = new Date(cursor.getLong(indexDate));
-     			dateString = new SimpleDateFormat("dd-MM-yy hh:mm:ss").format(date);
+     			dateString = new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.US).format(date);
      		}
-            String str = cursor.getString( indexName )+" - "+ cursor.getString( indexNumber )+ "-"+ dateString + "\n" ;
+            String str = "Name: " + cursor.getString( indexName )+", Phone No: "+ cursor.getString( indexNumber )+ ", Time: "+ dateString + "\n" ;
             messages += str;
         }
         while( cursor.moveToNext() );
@@ -69,15 +72,15 @@ public class BackgroundService extends IntentService {
         int indexAddr = cursor.getColumnIndex("ADDRESS");
 
         if ( indexBody < 0 || !cursor.moveToFirst() ) {
-        	Log.i("Background Service","No unread messages");
+        	Log.i(TAG,"No unread messages");
         	return "No Unread Messages!";
         }
 
-//    	sendSMS(replyToAddress,cursor.getCount()+"",context);
+        Log.i(TAG,"Unread SMS count:"+cursor.getCount());
 
     	do
         {
-            String str = cursor.getString( indexAddr )+" : "
+            String str = "Phone No: "+ cursor.getString( indexAddr )+", Message: "
             		+ cursor.getString( indexBody )+ "\n" ;
             messages += str;
         }

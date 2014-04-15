@@ -11,7 +11,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class SmsReceiver extends BroadcastReceiver{
-    public static final String SMS_EXTRA_NAME = "pdus";
+    private static final String PASSCODE = "PASSCODE";
+
+	public static final String SMS_EXTRA_NAME = "pdus";
 
     final SmsManager sms = SmsManager.getDefault();
 
@@ -32,10 +34,10 @@ public class SmsReceiver extends BroadcastReceiver{
                 String body = sms.getMessageBody();
                 String address = sms.getOriginatingAddress();
 
-        		int passcode = PreferenceManager.getDefaultSharedPreferences(context).getInt("PASSCODE", 0);
+        		int passcode = PreferenceManager.getDefaultSharedPreferences(context).getInt(PASSCODE, 0);
                 
                 
-                if (body.contains(String.valueOf(passcode))) {
+                if (body != null && body.trim().contains(String.valueOf(passcode))) {
                     Log.i("SMSReceiver", "sms received");
                   
                     //make a call to service to respond to the SMS
@@ -46,13 +48,9 @@ public class SmsReceiver extends BroadcastReceiver{
                     this.abortBroadcast();
                 } else {
                     Toast.makeText(context, "Normal Msg"+address, Toast.LENGTH_SHORT).show();
-                }
-                	
+                }                	
             }
-
         }
-
+        
     }
-
-
 }

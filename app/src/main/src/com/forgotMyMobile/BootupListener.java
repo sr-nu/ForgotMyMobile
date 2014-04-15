@@ -8,13 +8,13 @@ public class BootupListener extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED) ||
-            intent.getAction().equals(Intent.ACTION_USER_PRESENT)){
-            Intent i = new Intent("com.example.ServiceStarter");
+        String action = intent.getAction();
+		
+        if(action.equals(Intent.ACTION_BOOT_COMPLETED) || action.equals(Intent.ACTION_USER_PRESENT)){		
+            Intent i = new Intent("com.forgotMyMobile.BootupListener.CUSTOM_ACTION");
             i.setClass(context, SmsReceiver.class);
-            context.startService(i);
+            context.startService(i);            
         }
+        
     }
-
-
 }
