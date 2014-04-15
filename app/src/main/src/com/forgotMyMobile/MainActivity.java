@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity{
 	public static final String PASSCODE = "PASSCODE";
-	private static final String AUTO_FWD = "AUTO_FWD";
+	public static final String AUTO_FWD = "AUTO_FWD";
 	private static final String TAG = "MainActivity";
 
 	@Override
@@ -26,7 +26,7 @@ public class MainActivity extends Activity{
 		Log.d(TAG,"On create start");
 		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		int passcode = preferences.getInt(PASSCODE, 0);
+		long passcode = preferences.getLong(PASSCODE, 0);
 		EditText passCodeView = (EditText) findViewById(R.id.passcode);
 		passCodeView.setText(String.valueOf(passcode));
 		
@@ -55,7 +55,7 @@ public class MainActivity extends Activity{
 				if( passcode != null && !passcode.trim().isEmpty()) {
 					
 					Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext()).edit();
-					editor.putInt(PASSCODE, Integer.parseInt(passcode));
+					editor.putLong(PASSCODE, Long.parseLong(passcode));
 					editor.putBoolean(AUTO_FWD, needAutoFwd);
 					editor.commit();
 					

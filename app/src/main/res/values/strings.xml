@@ -3,7 +3,7 @@
     <string name="app_name">ForgotMyMobile</string>
     <string name="savePreferences">Save Preferences</string>
     <string name="enableAutoFwd">Enable Auto-Forward</string>
-    <string name="enableAutoFwdHint">If enabled, will automatically fwd messages and missed calls to last set number</string>
+    <string name="enableAutoFwdHint">If enabled, will automatically forward messages and missed calls to the last set number.</string>
     <string name="passcode">Passcode</string>
     <string name="passcodeHint">Need to send message with this passcode to retrieve details</string>
 </resources>
