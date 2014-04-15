@@ -7,11 +7,24 @@
     <Button android:layout_height="wrap_content"
             android:layout_width="match_parent" android:id="@+id/UpdateList"
             android:layout_margin="2dip"
-            android:text="Update SMS list" />
+            android:text="Query SMS Missed Call Count" />
 
     <ListView android:id="@+id/SMSList"
               android:layout_height="wrap_content"
               android:layout_width="match_parent"
               android:layout_margin="2dip" />
+    
+    <EditText android:id="@+id/passcode" 
+        	  android:layout_height="50dp"
+              android:layout_width="match_parent"
+              android:inputType="number"
+              android:layout_marginTop="250dp"
+              android:layout_margin="2dip" />
+    
+    <Button android:id="@+id/setPasscode"
+        	android:layout_height="wrap_content"
+        	android:layout_width="match_parent" 
+			android:text="@string/set_passcode"/>
+    
 
 </LinearLayout>
