@@ -36,7 +36,7 @@ public class SmsReceiver extends BroadcastReceiver{
 
         		int passcode = PreferenceManager.getDefaultSharedPreferences(context).getInt(PASSCODE, 0);                
                 
-                if (body != null && body.trim().contains(String.valueOf(passcode))) {
+                if (body != null && body.trim().startsWith(String.valueOf(passcode))) {
                     Log.i("SMSReceiver", "sms received");
                   
                     //make a call to service to respond to the SMS
