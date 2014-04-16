@@ -18,6 +18,7 @@ public class BackgroundService extends IntentService {
     private static final String TIMESTAMP_FORMAT = "dd/MM/yy hh:mm:ss";
 	public static final String RESPOND_TO = "RESPOND_TO";
 	private static final String TAG = "BackgroundService";
+	private static final String NEW_CALL = "1";
 
 	public BackgroundService() {
 		super("Background service");
@@ -27,15 +28,16 @@ public class BackgroundService extends IntentService {
 		String messages = getUnreadSMSDetails(context, replyToAddress);        
     	sendSMS(replyToAddress,messages,context);
     	Log.i("Messages:",messages);
+    	
     	messages = getMissedCallDetails(context);
     	sendSMS(replyToAddress,messages,context);
     	Log.i("calls:",messages);
     }
 
 	private String getMissedCallDetails(Context context) {
-		String messages="";
+		String messages="List of Missed Calls:\n";
 		String[] projection = { CallLog.Calls.CACHED_NAME, CallLog.Calls.NUMBER, CallLog.Calls.TYPE, CallLog.Calls.DATE };
-         String where = CallLog.Calls.TYPE+"="+CallLog.Calls.MISSED_TYPE+" AND "+ CallLog.Calls.NEW + "=1" ;          
+         String where = CallLog.Calls.TYPE+"="+CallLog.Calls.MISSED_TYPE+" AND "+ CallLog.Calls.NEW + "=" + NEW_CALL ;          
          Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI, projection ,where, null, null);
          
          if (!cursor.moveToFirst() ) {
@@ -64,9 +66,10 @@ public class BackgroundService extends IntentService {
 	}
 
 	private String getUnreadSMSDetails(Context context, String replyToAddress) {
-		String messages = "";
+		String messages = "List of Unread Messages:\n";
+		
 		ContentResolver contentResolver = context.getContentResolver();
-        Cursor cursor = contentResolver.query( Uri.parse("content://sms/inbox"), null, "ADDRESS <> '"+replyToAddress+"' AND read = 0", null, null);
+        Cursor cursor = contentResolver.query( Uri.parse("content://sms/inbox"), null, "ADDRESS <> '" + replyToAddress + "' AND read = 0", null, null);
 
         int indexBody = cursor.getColumnIndex("BODY");
         int indexAddr = cursor.getColumnIndex("ADDRESS");
@@ -77,7 +80,6 @@ public class BackgroundService extends IntentService {
         }
 
         Log.i(TAG,"Unread SMS count:"+cursor.getCount());
-
     	do
         {
             String str = "Phone No: "+ cursor.getString( indexAddr )+", Message: "

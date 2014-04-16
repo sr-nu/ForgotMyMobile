@@ -18,16 +18,6 @@
               android:selectAllOnFocus="true"
               android:hint="@string/passcodeHint"/>
     
-    <TextView android:id="@+id/autoFwdLbl"
-        	  android:text="@string/enableAutoFwd"
-        	  android:layout_height="wrap_content"
-        	  android:layout_width="match_parent"
-        	  />    
-    <CheckBox android:id="@+id/autoForward"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:hint="@string/enableAutoFwdHint"/>
-    
    	<Button android:id="@+id/savePreferences"
         	android:layout_height="wrap_content"
         	android:layout_width="match_parent" 

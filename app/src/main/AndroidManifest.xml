@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.READ_CALL_LOG"/>
     <uses-permission android:name="android.permission.WRITE_CALL_LOG"/>
  	<uses-permission android:name="android.permission.READ_CONTACTS"/>
- 	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 
  	
     <application android:label="ForgotMobile" android:icon="@drawable/call_icon" android:allowBackup="false">
@@ -33,13 +32,6 @@
             </intent-filter>
         </receiver>
         
-        <receiver android:enabled="true"  android:name="com.forgotMyMobile.CallReceiver" android:exported="true" >
-            <intent-filter android:priority="99999999">
-                <action android:name="android.intent.action.PHONE_STATE"/>
-                <action android:name="android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED" />
-            </intent-filter>
-        </receiver>
-
         <receiver android:name="com.forgotMyMobile.BootupListener">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>

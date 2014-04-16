@@ -10,13 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity{
 	public static final String PASSCODE = "PASSCODE";
-	public static final String AUTO_FWD = "AUTO_FWD";
 	private static final String TAG = "MainActivity";
 
 	@Override
@@ -29,10 +27,6 @@ public class MainActivity extends Activity{
 		long passcode = preferences.getLong(PASSCODE, 0);
 		EditText passCodeView = (EditText) findViewById(R.id.passcode);
 		passCodeView.setText(String.valueOf(passcode));
-		
-		boolean autoForward = preferences.getBoolean(AUTO_FWD, false);
-		CheckBox autoFwdCheckBox = (CheckBox) findViewById(R.id.autoForward);
-		autoFwdCheckBox.setChecked(autoForward);
 		
 		Button saveButton = (Button) findViewById(R.id.savePreferences);
 		saveButton.setOnClickListener(setSaveButtonListener());
@@ -48,15 +42,10 @@ public class MainActivity extends Activity{
 			EditText passCodeView = (EditText) MainActivity.this.findViewById(R.id.passcode);
 			String passcode = passCodeView.getText().toString();
 			
-			CheckBox autoFwdCheckBox = (CheckBox) findViewById(R.id.autoForward);
-			boolean needAutoFwd = autoFwdCheckBox.isChecked();
-			
-			
 				if( passcode != null && !passcode.trim().isEmpty()) {
 					
 					Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext()).edit();
 					editor.putLong(PASSCODE, Long.parseLong(passcode));
-					editor.putBoolean(AUTO_FWD, needAutoFwd);
 					editor.commit();
 					
 					Toast.makeText(MainActivity.this, "Preferences saved successfully!", Toast.LENGTH_LONG).show();
