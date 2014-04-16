@@ -66,8 +66,8 @@ public class MainActivity extends Activity{
 		final long passcode = preferences.getLong(PASSCODE, 0);
 		
 		new AlertDialog.Builder(this)
-	    .setTitle("All set, you can relax now!")
-	    .setMessage("Your passcode is saved.\n" +
+	    .setTitle("All set! you can relax now..")
+	    .setMessage("Your passcode has been saved.\n" +
 	    		"To retrieve unread sms' and missed calls, " +
 	    		"just sms: " + Html.fromHtml("<b>"+passcode+"</b>") + " from any mobile.")
 	    .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
