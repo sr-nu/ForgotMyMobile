@@ -15,7 +15,7 @@
  	<uses-permission android:name="android.permission.READ_CONTACTS"/>
 
  	
-    <application android:label="ForgotMobile" android:icon="@drawable/call_icon" android:allowBackup="false">
+    <application android:label="ForgotMobile" android:icon="@drawable/mobile" android:allowBackup="true">
 
         <activity android:label="ForgotMobile" android:name="com.forgotMyMobile.MainActivity" android:screenOrientation="portrait" android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>

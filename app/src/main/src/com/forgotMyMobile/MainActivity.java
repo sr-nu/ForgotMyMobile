@@ -1,11 +1,14 @@
 package com.forgotMyMobile;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,13 +51,37 @@ public class MainActivity extends Activity{
 					editor.putLong(PASSCODE, Long.parseLong(passcode));
 					editor.commit();
 					
-					Toast.makeText(MainActivity.this, "Preferences saved successfully!", Toast.LENGTH_LONG).show();
+					showSuccessMessage();
+					Log.i("MainActivity", "Preferences saved successfully!");
 				} else {
 					Toast.makeText(MainActivity.this, "Please set a valid Passcode.", Toast.LENGTH_LONG).show();
 				}
 			}
 			
 		};
+	}
+
+	protected void showSuccessMessage() {
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
+		final long passcode = preferences.getLong(PASSCODE, 0);
+		
+		new AlertDialog.Builder(this)
+	    .setTitle("All set, you can relax now!")
+	    .setMessage("Your passcode is saved.\n" +
+	    		"To retrieve unread sms' and missed calls, " +
+	    		"just sms: " + Html.fromHtml("<b>"+passcode+"</b>") + " from any mobile.")
+	    .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
+	        public void onClick(DialogInterface dialog, int which) { 
+	            dialog.cancel();
+	        }
+	     })	    
+	     .setNegativeButton(R.string.yes, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		            MainActivity.this.finish();
+		        }
+		     })
+	    .setIcon(R.drawable.relax_chair)
+	     .show();
 	}
 
 	@Override
