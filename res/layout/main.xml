@@ -2,16 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical" android:layout_width="fill_parent"
               android:layout_height="fill_parent" android:id="@+id/MainLayout"
-              android:background="@android:color/background_light">
-
-    <Button android:layout_height="wrap_content"
-            android:layout_width="match_parent" android:id="@+id/UpdateList"
-            android:layout_margin="2dip"
-            android:text="Update SMS list" />
-
-    <ListView android:id="@+id/SMSList"
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:layout_margin="2dip" />
-
+              android:background="@drawable/bg_tile">
+              
+    <ImageView android:id="@+id/title"
+        	  android:layout_height="wrap_content"
+        	  android:contentDescription="Forgot Mobile Title"
+        	  android:layout_width="fill_parent"
+        	  android:layout_marginTop="3dp"
+        	  android:src="@drawable/title"
+        	  android:layout_gravity="center_horizontal"/>
+    <LinearLayout  android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+         >          
+	    <TableLayout android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="3dp"
+	        android:layout_marginRight="3dp"
+	        android:layout_marginTop="50dp"
+	        android:layout_marginBottom="50dp">
+	        <TableRow>
+			    <TextView android:id="@+id/passcodeLbl"
+			        	  android:text="@string/passcode"
+			        	  android:minHeight="30dp"
+			        	  android:textColor="@color/text_color"
+			        	  android:layout_height="wrap_content"
+			        	  android:layout_width="wrap_content"
+			        	  android:layout_marginRight="5dp"
+			        	  />
+			    <EditText android:id="@+id/passcode" 
+			        	  android:layout_weight="1"
+			        	  android:ems="10"
+			        	  android:layout_height="wrap_content"
+			              android:layout_width="fill_parent"
+			              android:inputType="number"
+			              android:layout_marginTop="20dp"
+			              android:layout_margin="2dip" 
+			              android:singleLine="true"
+			              android:selectAllOnFocus="true"
+			              android:hint="@string/passcodeHint"/>
+			 </TableRow>
+	    </TableLayout>
+	   	<Button android:id="@+id/savePreferences"
+	        	android:layout_height="wrap_content"
+	        	android:layout_width="match_parent"
+	        	android:layout_marginTop="20dp"
+	        	android:layout_marginBottom="20dp" 
+	        	android:layout_marginLeft="3dp"
+	        	android:layout_marginRight="3dp"        	
+				android:text="@string/savePreferences"/>
+    </LinearLayout>
 </LinearLayout>
