@@ -43,6 +43,17 @@
 			              android:selectAllOnFocus="true"
 			              android:hint="@string/passcodeHint"/>
 			 </TableRow>
+			 <TableRow>
+			 			<TextView android:id="@+id/autoFwdLbl"
+          	  android:text="@string/enableAutoFwd"
+          	  android:layout_height="wrap_content"
+          	  android:layout_width="wrap_content"
+          	  />    
+             <CheckBox android:id="@+id/autoForward"
+             	android:layout_height="wrap_content"
+          	  android:layout_width="wrap_content"
+          	  />    
+			 </TableRow>
 	    </TableLayout>
 	   	<Button android:id="@+id/savePreferences"
 	        	android:layout_height="wrap_content"
