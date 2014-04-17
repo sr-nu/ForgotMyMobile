@@ -1,2 +1,11 @@
 out
 out/*
+bin
+bin/
+bin/*
+classes
+gen
+gen/
+gen/*
+*.dex
+**/*.dex
