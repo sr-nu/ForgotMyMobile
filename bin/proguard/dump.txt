@@ -8,17 +8,15 @@ _____________________________________________________________________
 
 Interfaces (count = 0):
 
-Constant Pool (count = 216):
+Constant Pool (count = 214):
   + String []
   + String [
 ]
   + String [ to : ]
-  + String [' AND read = 0]
   + String [, Message: ]
   + String [, Phone No: ]
   + String [, Time: ]
   + String [ADDRESS]
-  + String [ADDRESS <> ']
   + String [BODY]
   + String [Background Service]
   + String [Background service]
@@ -45,6 +43,7 @@ Constant Pool (count = 216):
   + String [dd/MM/yy hh:mm:ss]
   + String [name]
   + String [number]
+  + String [read = 0]
   + String [type]
   + String [type=3 AND new=1]
   + Class [android/app/IntentService]
@@ -126,7 +125,6 @@ Constant Pool (count = 216):
   + Utf8 [
 ]
   + Utf8 [ to : ]
-  + Utf8 [' AND read = 0]
   + Utf8 [()I]
   + Utf8 [()Landroid/content/ContentResolver;]
   + Utf8 [()Landroid/content/Context;]
@@ -159,7 +157,6 @@ Constant Pool (count = 216):
   + Utf8 [, Time: ]
   + Utf8 [<init>]
   + Utf8 [ADDRESS]
-  + Utf8 [ADDRESS <> ']
   + Utf8 [BODY]
   + Utf8 [Background Service]
   + Utf8 [Background service]
@@ -226,6 +223,7 @@ Constant Pool (count = 216):
   + Utf8 [onHandleIntent]
   + Utf8 [parse]
   + Utf8 [query]
+  + Utf8 [read = 0]
   + Utf8 [sendMultipartTextMessage]
   + Utf8 [toString]
   + Utf8 [type]
@@ -240,9 +238,9 @@ Methods (count = 6):
     Class member attributes (count = 1):
     + Code attribute instructions (code length = 7, locals = 1, stack = 2):
       [0] aload_0 v0
-      [1] ldc #12
+      [1] ldc #10
         + String [Background service]
-      [3] invokespecial #53
+      [3] invokespecial #52
         + Methodref [android/app/IntentService.<init> (Ljava/lang/String;)V]
       [6] return
       Code attribute exceptions (count = 0):
@@ -255,36 +253,36 @@ Methods (count = 6):
       [0] aload_0 v0
       [1] aload_1 v1
       [2] aload_2 v2
-      [3] invokespecial #65
+      [3] invokespecial #64
         + Methodref [com/forgotMyMobile/BackgroundService.b (Landroid/content/Context;Ljava/lang/String;)Ljava/lang/String;]
       [6] astore_3 v3
       [7] aload_0 v0
       [8] aload_2 v2
       [9] aload_3 v3
       [10] aload_1 v1
-      [11] invokespecial #64
+      [11] invokespecial #63
         + Methodref [com/forgotMyMobile/BackgroundService.a (Ljava/lang/String;Ljava/lang/String;Landroid/content/Context;)V]
-      [14] ldc #17
+      [14] ldc #15
         + String [Messages:]
       [16] aload_3 v3
-      [17] invokestatic #61
+      [17] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
       [20] pop
       [21] aload_0 v0
       [22] aload_1 v1
-      [23] invokespecial #62
+      [23] invokespecial #61
         + Methodref [com/forgotMyMobile/BackgroundService.a (Landroid/content/Context;)Ljava/lang/String;]
       [26] astore_3 v3
       [27] aload_0 v0
       [28] aload_2 v2
       [29] aload_3 v3
       [30] aload_1 v1
-      [31] invokespecial #64
+      [31] invokespecial #63
         + Methodref [com/forgotMyMobile/BackgroundService.a (Ljava/lang/String;Ljava/lang/String;Landroid/content/Context;)V]
-      [34] ldc #28
+      [34] ldc #26
         + String [calls:]
       [36] aload_3 v3
-      [37] invokestatic #61
+      [37] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
       [40] pop
       [41] return
@@ -295,79 +293,79 @@ Methods (count = 6):
       = private java.lang.String a(android.content.Context)
     Class member attributes (count = 1):
     + Code attribute instructions (code length = 263, locals = 11, stack = 6):
-      [0] ldc #15
+      [0] ldc #13
         + String [List of Missed Calls:
 ]
       [2] astore_2 v2
       [3] iconst_4
-      [4] anewarray #46
+      [4] anewarray #45
         + Class [java/lang/String]
       [7] dup
       [8] iconst_0
-      [9] ldc #32
+      [9] ldc #30
         + String [name]
       [11] aastore
       [12] dup
       [13] iconst_1
-      [14] ldc #33
+      [14] ldc #31
         + String [number]
       [16] aastore
       [17] dup
       [18] iconst_2
-      [19] ldc #34
+      [19] ldc #33
         + String [type]
       [21] aastore
       [22] dup
       [23] iconst_3
-      [24] ldc #30
+      [24] ldc #28
         + String [date]
       [26] aastore
       [27] astore_3 v3
-      [28] ldc #35
+      [28] ldc #34
         + String [type=3 AND new=1]
       [30] astore v4
       [32] aload_1 v1
-      [33] invokevirtual #55
+      [33] invokevirtual #54
         + Methodref [android/content/Context.getContentResolver ()Landroid/content/ContentResolver;]
-      [36] getstatic #51
+      [36] getstatic #50
         + Fieldref [android/provider/CallLog$Calls.CONTENT_URI Landroid/net/Uri;]
       [39] aload_3 v3
       [40] aload v4
       [42] aconst_null
       [43] aconst_null
-      [44] invokevirtual #54
+      [44] invokevirtual #53
         + Methodref [android/content/ContentResolver.query (Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;]
       [47] astore v5
       [49] aload v5
-      [51] invokeinterface #79
+      [51] invokeinterface #78
         + InterfaceMethodref [android/database/Cursor.moveToFirst ()Z]
       [56] ifne +14 (target=70)
-      [59] ldc #11
+      [59] ldc #9
         + String [Background Service]
-      [61] ldc #21
+      [61] ldc #19
         + String [No missed calls]
-      [63] invokestatic #61
+      [63] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
       [66] pop
-      [67] ldc #19
+      [67] ldc #17
         + String [No Missed Calls!]
       [69] areturn
       [70] aload v5
-      [72] ldc #32
+      [72] ldc #30
         + String [name]
-      [74] invokeinterface #75
+      [74] invokeinterface #74
         + InterfaceMethodref [android/database/Cursor.getColumnIndex (Ljava/lang/String;)I]
       [79] istore v6
       [81] aload v5
-      [83] ldc #33
+      [83] ldc #31
         + String [number]
-      [85] invokeinterface #75
+      [85] invokeinterface #74
         + InterfaceMethodref [android/database/Cursor.getColumnIndex (Ljava/lang/String;)I]
       [90] istore v7
       [92] aload v5
-      [94] ldc #30
+      [94] ldc #28
         + String [date]
-      [96] invokeinterface #75
+      [96] invokeinterface #74
         + InterfaceMethodref [android/database/Cursor.getColumnIndex (Ljava/lang/String;)I]
       [101] istore v8
       [103] ldc #1
@@ -377,94 +375,94 @@ Methods (count = 6):
       [109] iflt +54 (target=163)
       [112] aload v5
       [114] iload v8
-      [116] invokeinterface #77
+      [116] invokeinterface #76
         + InterfaceMethodref [android/database/Cursor.getLong (I)J]
       [121] lconst_0
       [122] lcmp
       [123] ifle +40 (target=163)
-      [126] new #48
+      [126] new #47
         + Class [java/sql/Date]
       [129] dup
       [130] aload v5
       [132] iload v8
-      [134] invokeinterface #77
+      [134] invokeinterface #76
         + InterfaceMethodref [android/database/Cursor.getLong (I)J]
-      [139] invokespecial #71
+      [139] invokespecial #70
         + Methodref [java/sql/Date.<init> (J)V]
       [142] astore v10
-      [144] new #49
+      [144] new #48
         + Class [java/text/SimpleDateFormat]
       [147] dup
-      [148] ldc #31
+      [148] ldc #29
         + String [dd/MM/yy hh:mm:ss]
-      [150] getstatic #52
+      [150] getstatic #51
         + Fieldref [java/util/Locale.US Ljava/util/Locale;]
-      [153] invokespecial #72
+      [153] invokespecial #71
         + Methodref [java/text/SimpleDateFormat.<init> (Ljava/lang/String;Ljava/util/Locale;)V]
       [156] aload v10
-      [158] invokevirtual #73
+      [158] invokevirtual #72
         + Methodref [java/text/SimpleDateFormat.format (Ljava/util/Date;)Ljava/lang/String;]
       [161] astore v9
-      [163] new #47
+      [163] new #46
         + Class [java/lang/StringBuilder]
       [166] dup
-      [167] invokespecial #67
+      [167] invokespecial #66
         + Methodref [java/lang/StringBuilder.<init> ()V]
-      [170] ldc #18
+      [170] ldc #16
         + String [Name: ]
-      [172] invokevirtual #69
+      [172] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [175] aload v5
       [177] iload v6
-      [179] invokeinterface #78
+      [179] invokeinterface #77
         + InterfaceMethodref [android/database/Cursor.getString (I)Ljava/lang/String;]
-      [184] invokevirtual #69
+      [184] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [187] ldc #6
+      [187] ldc #5
         + String [, Phone No: ]
-      [189] invokevirtual #69
+      [189] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [192] aload v5
       [194] iload v7
-      [196] invokeinterface #78
+      [196] invokeinterface #77
         + InterfaceMethodref [android/database/Cursor.getString (I)Ljava/lang/String;]
-      [201] invokevirtual #69
+      [201] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [204] ldc #7
+      [204] ldc #6
         + String [, Time: ]
-      [206] invokevirtual #69
+      [206] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [209] aload v9
-      [211] invokevirtual #69
+      [211] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [214] ldc #2
         + String [
 ]
-      [216] invokevirtual #69
+      [216] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [219] invokevirtual #70
+      [219] invokevirtual #69
         + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
       [222] astore v10
-      [224] new #47
+      [224] new #46
         + Class [java/lang/StringBuilder]
       [227] dup
-      [228] invokespecial #67
+      [228] invokespecial #66
         + Methodref [java/lang/StringBuilder.<init> ()V]
       [231] aload_2 v2
-      [232] invokevirtual #69
+      [232] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [235] aload v10
-      [237] invokevirtual #69
+      [237] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [240] invokevirtual #70
+      [240] invokevirtual #69
         + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
       [243] astore_2 v2
       [244] aload v5
-      [246] invokeinterface #80
+      [246] invokeinterface #79
         + InterfaceMethodref [android/database/Cursor.moveToNext ()Z]
       [251] ifne -148 (target=103)
       [254] aload v5
-      [256] invokeinterface #74
+      [256] invokeinterface #73
         + InterfaceMethodref [android/database/Cursor.close ()V]
       [261] aload_2 v2
       [262] areturn
@@ -474,149 +472,133 @@ Methods (count = 6):
     Access flags: 0x2
       = private java.lang.String b(android.content.Context,java.lang.String)
     Class member attributes (count = 1):
-    + Code attribute instructions (code length = 217, locals = 9, stack = 6):
-      [0] ldc #16
+    + Code attribute instructions (code length = 195, locals = 9, stack = 6):
+      [0] ldc #14
         + String [List of Unread Messages:
 ]
       [2] astore_3 v3
       [3] aload_1 v1
-      [4] invokevirtual #55
+      [4] invokevirtual #54
         + Methodref [android/content/Context.getContentResolver ()Landroid/content/ContentResolver;]
       [7] astore v4
       [9] aload v4
-      [11] ldc #29
+      [11] ldc #27
         + String [content://sms/inbox]
-      [13] invokestatic #57
+      [13] invokestatic #56
         + Methodref [android/net/Uri.parse (Ljava/lang/String;)Landroid/net/Uri;]
       [16] aconst_null
-      [17] new #47
-        + Class [java/lang/StringBuilder]
-      [20] dup
-      [21] invokespecial #67
-        + Methodref [java/lang/StringBuilder.<init> ()V]
-      [24] ldc #9
-        + String [ADDRESS <> ']
-      [26] invokevirtual #69
-        + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [29] aload_2 v2
-      [30] invokevirtual #69
-        + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [33] ldc #4
-        + String [' AND read = 0]
-      [35] invokevirtual #69
-        + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [38] invokevirtual #70
-        + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
-      [41] aconst_null
-      [42] aconst_null
-      [43] invokevirtual #54
+      [17] ldc #32
+        + String [read = 0]
+      [19] aconst_null
+      [20] aconst_null
+      [21] invokevirtual #53
         + Methodref [android/content/ContentResolver.query (Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;]
-      [46] astore v5
-      [48] aload v5
-      [50] ldc #10
+      [24] astore v5
+      [26] aload v5
+      [28] ldc #8
         + String [BODY]
-      [52] invokeinterface #75
+      [30] invokeinterface #74
         + InterfaceMethodref [android/database/Cursor.getColumnIndex (Ljava/lang/String;)I]
-      [57] istore v6
-      [59] aload v5
-      [61] ldc #8
+      [35] istore v6
+      [37] aload v5
+      [39] ldc #7
         + String [ADDRESS]
-      [63] invokeinterface #75
+      [41] invokeinterface #74
         + InterfaceMethodref [android/database/Cursor.getColumnIndex (Ljava/lang/String;)I]
-      [68] istore v7
-      [70] iload v6
-      [72] iflt +13 (target=85)
-      [75] aload v5
-      [77] invokeinterface #79
+      [46] istore v7
+      [48] iload v6
+      [50] iflt +13 (target=63)
+      [53] aload v5
+      [55] invokeinterface #78
         + InterfaceMethodref [android/database/Cursor.moveToFirst ()Z]
-      [82] ifne +14 (target=96)
-      [85] ldc #13
+      [60] ifne +14 (target=74)
+      [63] ldc #11
         + String [BackgroundService]
-      [87] ldc #22
+      [65] ldc #20
         + String [No unread messages]
-      [89] invokestatic #61
+      [67] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
-      [92] pop
-      [93] ldc #20
+      [70] pop
+      [71] ldc #18
         + String [No Unread Messages!]
-      [95] areturn
-      [96] ldc #13
+      [73] areturn
+      [74] ldc #11
         + String [BackgroundService]
-      [98] new #47
+      [76] new #46
         + Class [java/lang/StringBuilder]
-      [101] dup
-      [102] invokespecial #67
+      [79] dup
+      [80] invokespecial #66
         + Methodref [java/lang/StringBuilder.<init> ()V]
-      [105] ldc #27
+      [83] ldc #25
         + String [Unread SMS count:]
-      [107] invokevirtual #69
+      [85] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [110] aload v5
-      [112] invokeinterface #76
+      [88] aload v5
+      [90] invokeinterface #75
         + InterfaceMethodref [android/database/Cursor.getCount ()I]
-      [117] invokevirtual #68
+      [95] invokevirtual #67
         + Methodref [java/lang/StringBuilder.append (I)Ljava/lang/StringBuilder;]
-      [120] invokevirtual #70
+      [98] invokevirtual #69
         + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
-      [123] invokestatic #61
+      [101] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
-      [126] pop
-      [127] new #47
+      [104] pop
+      [105] new #46
         + Class [java/lang/StringBuilder]
-      [130] dup
-      [131] invokespecial #67
+      [108] dup
+      [109] invokespecial #66
         + Methodref [java/lang/StringBuilder.<init> ()V]
-      [134] ldc #23
+      [112] ldc #21
         + String [Phone No: ]
-      [136] invokevirtual #69
+      [114] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [139] aload v5
-      [141] iload v7
-      [143] invokeinterface #78
+      [117] aload v5
+      [119] iload v7
+      [121] invokeinterface #77
         + InterfaceMethodref [android/database/Cursor.getString (I)Ljava/lang/String;]
-      [148] invokevirtual #69
+      [126] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [151] ldc #5
+      [129] ldc #4
         + String [, Message: ]
-      [153] invokevirtual #69
+      [131] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [156] aload v5
-      [158] iload v6
-      [160] invokeinterface #78
+      [134] aload v5
+      [136] iload v6
+      [138] invokeinterface #77
         + InterfaceMethodref [android/database/Cursor.getString (I)Ljava/lang/String;]
-      [165] invokevirtual #69
+      [143] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [168] ldc #2
+      [146] ldc #2
         + String [
 ]
-      [170] invokevirtual #69
+      [148] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [173] invokevirtual #70
+      [151] invokevirtual #69
         + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
-      [176] astore v8
-      [178] new #47
+      [154] astore v8
+      [156] new #46
         + Class [java/lang/StringBuilder]
-      [181] dup
-      [182] invokespecial #67
+      [159] dup
+      [160] invokespecial #66
         + Methodref [java/lang/StringBuilder.<init> ()V]
-      [185] aload_3 v3
-      [186] invokevirtual #69
+      [163] aload_3 v3
+      [164] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [189] aload v8
-      [191] invokevirtual #69
+      [167] aload v8
+      [169] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [194] invokevirtual #70
+      [172] invokevirtual #69
         + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
-      [197] astore_3 v3
-      [198] aload v5
-      [200] invokeinterface #80
+      [175] astore_3 v3
+      [176] aload v5
+      [178] invokeinterface #79
         + InterfaceMethodref [android/database/Cursor.moveToNext ()Z]
-      [205] ifne -78 (target=127)
-      [208] aload v5
-      [210] invokeinterface #74
+      [183] ifne -78 (target=105)
+      [186] aload v5
+      [188] invokeinterface #73
         + InterfaceMethodref [android/database/Cursor.close ()V]
-      [215] aload_3 v3
-      [216] areturn
+      [193] aload_3 v3
+      [194] areturn
       Code attribute exceptions (count = 0):
       Code attribute attributes (attribute count = 0):
   + Method:       a(Ljava/lang/String;Ljava/lang/String;Landroid/content/Context;)V
@@ -626,33 +608,33 @@ Methods (count = 6):
     + Code attribute instructions (code length = 59, locals = 5, stack = 6):
       [0] aload_1 v1
       [1] ifnull +57 (target=58)
-      [4] ldc #25
+      [4] ldc #23
         + String [SendSMS]
-      [6] new #47
+      [6] new #46
         + Class [java/lang/StringBuilder]
       [9] dup
-      [10] invokespecial #67
+      [10] invokespecial #66
         + Methodref [java/lang/StringBuilder.<init> ()V]
-      [13] ldc #26
+      [13] ldc #24
         + String [Sending]
-      [15] invokevirtual #69
+      [15] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [18] aload_2 v2
-      [19] invokevirtual #69
+      [19] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [22] ldc #3
         + String [ to : ]
-      [24] invokevirtual #69
+      [24] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
       [27] aload_1 v1
-      [28] invokevirtual #69
+      [28] invokevirtual #68
         + Methodref [java/lang/StringBuilder.append (Ljava/lang/String;)Ljava/lang/StringBuilder;]
-      [31] invokevirtual #70
+      [31] invokevirtual #69
         + Methodref [java/lang/StringBuilder.toString ()Ljava/lang/String;]
-      [34] invokestatic #61
+      [34] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
       [37] pop
-      [38] invokestatic #59
+      [38] invokestatic #58
         + Methodref [android/telephony/SmsManager.getDefault ()Landroid/telephony/SmsManager;]
       [41] astore v4
       [43] aload v4
@@ -660,11 +642,11 @@ Methods (count = 6):
       [46] aconst_null
       [47] aload v4
       [49] aload_2 v2
-      [50] invokevirtual #58
+      [50] invokevirtual #57
         + Methodref [android/telephony/SmsManager.divideMessage (Ljava/lang/String;)Ljava/util/ArrayList;]
       [53] aconst_null
       [54] aconst_null
-      [55] invokevirtual #60
+      [55] invokevirtual #59
         + Methodref [android/telephony/SmsManager.sendMultipartTextMessage (Ljava/lang/String;Ljava/lang/String;Ljava/util/ArrayList;Ljava/util/ArrayList;Ljava/util/ArrayList;)V]
       [58] return
       Code attribute exceptions (count = 0):
@@ -674,25 +656,25 @@ Methods (count = 6):
       = protected void onHandleIntent(android.content.Intent)
     Class member attributes (count = 1):
     + Code attribute instructions (code length = 25, locals = 3, stack = 3):
-      [0] ldc #11
+      [0] ldc #9
         + String [Background Service]
-      [2] ldc #14
+      [2] ldc #12
         + String [Intent received]
-      [4] invokestatic #61
+      [4] invokestatic #60
         + Methodref [android/util/Log.i (Ljava/lang/String;Ljava/lang/String;)I]
       [7] pop
       [8] aload_1 v1
-      [9] ldc #24
+      [9] ldc #22
         + String [RESPOND_TO]
-      [11] invokevirtual #56
+      [11] invokevirtual #55
         + Methodref [android/content/Intent.getStringExtra (Ljava/lang/String;)Ljava/lang/String;]
       [14] astore_2 v2
       [15] aload_0 v0
       [16] aload_0 v0
-      [17] invokevirtual #66
+      [17] invokevirtual #65
         + Methodref [com/forgotMyMobile/BackgroundService.getApplicationContext ()Landroid/content/Context;]
       [20] aload_2 v2
-      [21] invokevirtual #63
+      [21] invokevirtual #62
         + Methodref [com/forgotMyMobile/BackgroundService.a (Landroid/content/Context;Ljava/lang/String;)V]
       [24] return
       Code attribute exceptions (count = 0):
