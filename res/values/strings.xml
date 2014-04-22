@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ForgotMyMobile</string>
+    <string name="email_id">srikanth.nutigattu@gmail.com</string>
+
     <string name="savePreferences">Save</string>
     <string name="enableAutoFwd">Enable Auto-Forward</string>
     <string name="enableAutoFwdHint">If enabled, will automatically forward messages and missed calls to the last set number.</string>
@@ -8,4 +10,7 @@
     <string name="passcodeHint">Passcode to be used</string>
     <string name="yes">Done</string>
     <string name="no">Cancel</string>
+    <string name="info">Info</string>
+    <string name="help">Help</string>
+    <string name="ok">OK</string>
 </resources>

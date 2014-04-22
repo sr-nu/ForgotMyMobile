@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -88,5 +92,72 @@ public class MainActivity extends Activity{
 		super.onStart();
 		startService(new Intent(this,SmsReceiver.class));
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.more_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.info:
+                showInfo();
+                return true;
+            case R.id.help:
+                showHelp();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showHelp() {
+        new AlertDialog.Builder(this)
+                .setTitle("Help")
+                .setMessage("What is this app? \n" +
+                        "This app is like a helper, if you ever forget your mobile, " +
+                                "and want to find out who called you or messaged you, " +
+                                "simply send an sms with your pass code and app will respond with the details. \n\n"+
+
+                        "How to use this app?" + "\n" +
+                "Once installed, set the pass code and save, the app will be listening to incoming messages. " +
+                        "If it receives a message with the set pass code, It will respond with the details.  \n")
+                .setCancelable(true)
+                .setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setIcon(R.drawable.help)
+                .show();
+
+    }
+
+    private void showInfo() {
+        String versionName = "";
+        try {
+            versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e(TAG,"VersionName not set");
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle("About Us")
+                .setMessage("Current Version: " + versionName + "\n\n" +
+                        "Contact: "+getResources().getString(R.string.email_id))
+                .setCancelable(true)
+                .setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setIcon(R.drawable.info)
+                .show();
+
+    }
 
 }
