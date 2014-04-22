@@ -1,9 +1,5 @@
 package com.forgotMyMobile.services;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
-
 import android.app.IntentService;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -13,6 +9,10 @@ import android.net.Uri;
 import android.provider.CallLog;
 import android.telephony.SmsManager;
 import android.util.Log;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class BackgroundService extends IntentService {
     private static final String TIMESTAMP_FORMAT = "dd/MM/yy hh:mm:ss";

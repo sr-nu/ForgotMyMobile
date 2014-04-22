@@ -1,17 +1,16 @@
 package com.forgotMyMobile.listeners;
 
-import com.forgotMyMobile.helpers.PreferenceHelper;
-import com.forgotMyMobile.services.BackgroundService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.forgotMyMobile.helpers.PreferenceHelper;
+import com.forgotMyMobile.services.BackgroundService;
 
 public class SmsReceiver extends BroadcastReceiver{
     private static final String TAG = "SmsReceiver";

@@ -27,7 +27,7 @@ public class PreferenceHelper {
     }
 
     public static void saveAutoFwdNumberIfRequired(Context context, String fromNumber) {
-        if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(AUTO_FWD, false)) {
+        if(isAutoForwardEnabled(context)) {
             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
             editor.putString(AUTO_FWD_TO, fromNumber);
             editor.commit();
