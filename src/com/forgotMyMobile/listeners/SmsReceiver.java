@@ -1,9 +1,11 @@
-package com.forgotMyMobile;
+package com.forgotMyMobile.listeners;
+
+import com.forgotMyMobile.helpers.PreferenceHelper;
+import com.forgotMyMobile.services.BackgroundService;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsManager;
@@ -12,10 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 public class SmsReceiver extends BroadcastReceiver{
-    private static final String PASSCODE = "PASSCODE";
-	public static final String SMS_EXTRA_NAME = "pdus";
-	private static final String TAG = "SmsReceiver";
-	private static final String AUTO_FWD_TO = "AUTO_FWD_TO";
+    private static final String TAG = "SmsReceiver";
 
 
     public void onReceive( Context context, Intent intent )
@@ -27,7 +26,7 @@ public class SmsReceiver extends BroadcastReceiver{
 
         if ( extras != null )
         {
-            Object[] smsExtra = (Object[]) extras.get( SMS_EXTRA_NAME );
+            Object[] smsExtra = (Object[]) extras.get( PreferenceHelper.SMS_EXTRA_NAME );
 
             for (Object aSmsExtra : smsExtra) {
                 SmsMessage sms = SmsMessage.createFromPdu((byte[]) aSmsExtra);
@@ -37,22 +36,18 @@ public class SmsReceiver extends BroadcastReceiver{
 
                 if (isControlMessage(body,context)) {
                     Log.i("SMSReceiver", "sms received");
-                    
-                    if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(MainActivity.AUTO_FWD, false)) {
-                    	Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-						editor.putString(AUTO_FWD_TO, fromNumber);
-						editor.commit();
-                    }
-                    
+
+                    PreferenceHelper.saveAutoFwdNumberIfRequired(context, fromNumber);
+
                     Intent i = new Intent(context,BackgroundService.class);
                     i.putExtra(BackgroundService.RESPOND_TO, fromNumber);
                     context.startService(i);
                     
                     Toast.makeText(context, "Control Msg from:"+fromNumber, Toast.LENGTH_SHORT).show();
                 } else {
-                	if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean(MainActivity.AUTO_FWD, false)) {
+                	if(PreferenceHelper.isAutoForwardEnabled(context)) {
                 		Log.d(TAG,"AutoForward is set");
-                		String autoFwdTo = PreferenceManager.getDefaultSharedPreferences(context).getString(AUTO_FWD_TO,"");
+                		String autoFwdTo = PreferenceHelper.getAutoFwdNumber(context);
                 		if(autoFwdTo != null && !autoFwdTo.trim().isEmpty()) {
                     		Log.i(TAG,"AutoForwarding message to:"+autoFwdTo);
                 		    SmsManager smsManager = SmsManager.getDefault();
@@ -66,8 +61,8 @@ public class SmsReceiver extends BroadcastReceiver{
         
     }
 
-	private boolean isControlMessage(String body,Context context) {
-		long passcode = PreferenceManager.getDefaultSharedPreferences(context).getLong(PASSCODE, 0);                
-		return body != null && body.trim().equals(String.valueOf(passcode));
+    private boolean isControlMessage(String body,Context context) {
+		String passCode = PreferenceHelper.getPassCode(context);
+		return body != null && body.trim().equals(passCode);
 	}
 }

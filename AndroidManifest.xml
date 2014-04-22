@@ -25,20 +25,20 @@
             </intent-filter>
         </activity>
         
-       <service android:enabled="true" android:name="com.forgotMyMobile.BackgroundService" />
+       <service android:enabled="true" android:name="com.forgotMyMobile.services.BackgroundService" />
        
-       <receiver android:name="com.forgotMyMobile.SmsReceiver" android:exported="true" >
+       <receiver android:name="com.forgotMyMobile.listeners.SmsReceiver" android:exported="true" >
             <intent-filter android:priority="99999999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
         
-        <receiver android:name="com.forgotMyMobile.BootupListener">
+        <receiver android:name="com.forgotMyMobile.listeners.BootupListener">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver> 
-        <receiver android:enabled="true"  android:name="com.forgotMyMobile.CallReceiver" android:exported="true" >
+        <receiver android:enabled="true"  android:name="andrcom.forgotMyMobile.listeners.CallReceiverllReceiver" android:exported="true" >
              <intent-filter android:priority="99999999">
                  <action android:name="android.intent.action.PHONE_STATE"/>
                  <action android:name="android.telephony.TelephonyManager.ACTION_PHONE_STATE_CHANGED" />

@@ -9,3 +9,7 @@ gen/
 gen/*
 *.dex
 **/*.dex
+.idea
+.idea/
+.iml
+*.iml

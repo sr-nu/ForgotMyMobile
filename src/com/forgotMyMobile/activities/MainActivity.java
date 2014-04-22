@@ -1,5 +1,7 @@
-package com.forgotMyMobile;
+package com.forgotMyMobile.activities;
 
+import com.forgotMyMobile.helpers.PreferenceHelper;
+import com.forgotMyMobile.listeners.SmsReceiver;
 import com.mymobile.forgotmymobile.R;
 
 import android.app.Activity;
@@ -7,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
@@ -20,69 +21,56 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends Activity{
-	public static final String PASSCODE = "PASSCODE";
-	public static final String AUTO_FWD = "AUTO_FWD";
-	private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		this.setContentView(R.layout.main);
 		Log.d(TAG,"On create start");
-		
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		long passcode = preferences.getLong(PASSCODE, 0);
-		EditText passCodeView = (EditText) findViewById(R.id.passcode);
-		passCodeView.setText(String.valueOf(passcode));
-		
-		boolean autoForward = preferences.getBoolean(AUTO_FWD, false);
-		CheckBox autoFwdCheckBox = (CheckBox) findViewById(R.id.autoForward);
-		autoFwdCheckBox.setChecked(autoForward);
+        EditText passCodeView = (EditText) findViewById(R.id.passcode);
+		passCodeView.setText(PreferenceHelper.getPassCode(getApplicationContext()));
+
+        CheckBox autoFwdCheckBox = (CheckBox) findViewById(R.id.autoForward);
+		autoFwdCheckBox.setChecked(PreferenceHelper.isAutoForwardEnabled(getApplicationContext()));
 		
 		Button saveButton = (Button) findViewById(R.id.savePreferences);
 		saveButton.setOnClickListener(setSaveButtonListener());
 		Log.d(TAG,"On create completed");
 	}
 
-	private OnClickListener setSaveButtonListener() {
+
+    private OnClickListener setSaveButtonListener() {
 		return new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
 			EditText passCodeView = (EditText) MainActivity.this.findViewById(R.id.passcode);
 			String passcode = passCodeView.getText().toString();
 			
 			CheckBox autoFwdCheckBox = (CheckBox) findViewById(R.id.autoForward);
 			boolean needAutoFwd = autoFwdCheckBox.isChecked();
 			
-			
 				if( passcode != null && !passcode.trim().isEmpty()) {
-					
-					Editor editor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext()).edit();
-					editor.putLong(PASSCODE, Long.parseLong(passcode));
-					editor.putBoolean(AUTO_FWD, needAutoFwd);
-					editor.commit();
-					
+                    PreferenceHelper.saveSettings(passcode, needAutoFwd, MainActivity.this);
 					showSuccessMessage();
 					Log.i("MainActivity", "Preferences saved successfully!");
 				} else {
-					Toast.makeText(MainActivity.this, "Please set a valid Passcode.", Toast.LENGTH_LONG).show();
+					Toast.makeText(MainActivity.this, "Please set a valid Pass code.", Toast.LENGTH_LONG).show();
 				}
 			}
 			
 		};
 	}
 
-	protected void showSuccessMessage() {
-		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this.getApplicationContext());
-		final long passcode = preferences.getLong(PASSCODE, 0);
+    protected void showSuccessMessage() {
+		final String passCode = PreferenceHelper.getPassCode(MainActivity.this);
 		
 		new AlertDialog.Builder(this)
 	    .setTitle("All set! you can relax now..")
-	    .setMessage("Your passcode has been saved.\n" +
+	    .setMessage("Your pass code has been saved.\n" +
 	    		"To retrieve unread sms' and missed calls, " +
-	    		"just sms: " + Html.fromHtml("<b>"+passcode+"</b>") + " from any mobile.")
+	    		"just sms: " + Html.fromHtml("<b>"+passCode+"</b>") + " from any mobile.")
 	    .setPositiveButton(R.string.no, new DialogInterface.OnClickListener() {
 	        public void onClick(DialogInterface dialog, int which) { 
 	            dialog.cancel();
