@@ -9,8 +9,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.forgotMyMobile.helpers.CommandHandler;
 import com.forgotMyMobile.helpers.PreferenceHelper;
-import com.forgotMyMobile.services.BackgroundService;
 
 public class SmsReceiver extends BroadcastReceiver{
     private static final String TAG = "SmsReceiver";
@@ -36,11 +36,7 @@ public class SmsReceiver extends BroadcastReceiver{
                 if (isControlMessage(body,context)) {
                     Log.i("SMSReceiver", "sms received");
 
-                    PreferenceHelper.saveAutoFwdNumberIfRequired(context, fromNumber);
-
-                    Intent i = new Intent(context,BackgroundService.class);
-                    i.putExtra(BackgroundService.RESPOND_TO, fromNumber);
-                    context.startService(i);
+                    CommandHandler.handleCommand(context, fromNumber, getCommand(body,context));
                     
                     Toast.makeText(context, "Control Msg from:"+fromNumber, Toast.LENGTH_SHORT).show();
                 } else {
@@ -60,8 +56,17 @@ public class SmsReceiver extends BroadcastReceiver{
         
     }
 
-    private boolean isControlMessage(String body,Context context) {
+    private String getCommand(String body, Context context) {
+    	String passCode = PreferenceHelper.getPassCode(context);
+    	if ( body.contains(passCode) ){
+    		return body.substring(passCode.length()).trim();
+    	} else {
+    		return null;
+    	}
+    }
+    
+	private boolean isControlMessage(String body,Context context) {
 		String passCode = PreferenceHelper.getPassCode(context);
-		return body != null && body.trim().equals(passCode);
+		return body != null && body.trim().startsWith(passCode);
 	}
 }

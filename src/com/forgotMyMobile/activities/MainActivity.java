@@ -22,8 +22,9 @@ import com.forgotMyMobile.helpers.PreferenceHelper;
 import com.forgotMyMobile.listeners.SmsReceiver;
 import com.mymobile.forgotmymobile.R;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
+	public static final String STOP_AUTO_FWD = "stopAutoFwd";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -92,6 +93,30 @@ public class MainActivity extends Activity{
 		super.onStart();
 		startService(new Intent(this,SmsReceiver.class));
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		Intent i = getIntent();
+		if (i.hasExtra(STOP_AUTO_FWD)){
+			i.removeExtra(STOP_AUTO_FWD);
+			PreferenceHelper.setAutoFwd(getApplicationContext(), false);
+			new AlertDialog.Builder(this)
+            .setTitle("Auto Forward Stopped!")
+            .setMessage("Auto forward of missed call details and new messages has been STOPPED!.\n" +
+            		"Please change your passcode for security reasons.")
+            .setCancelable(true)
+            .setNeutralButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            })
+            .setIcon(R.drawable.alert)
+            .show();
+		}
+	}
+	
+	
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -14,25 +14,22 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import com.forgotMyMobile.helpers.PreferenceHelper;
+
 public class BackgroundService extends IntentService {
     private static final String TIMESTAMP_FORMAT = "dd/MM/yy hh:mm:ss";
 	public static final String RESPOND_TO = "RESPOND_TO";
 	private static final String TAG = "BackgroundService";
 	private static final String NEW_CALL = "1";
+	public static final String COMMAND = "command";
+	private static final String DEFAULT = "";
+	private static final String HELP = "help";
+	private static final String AUTO_ON = "auto on";
+	private static final String AUTO_OFF = "auto off";
 
 	public BackgroundService() {
 		super("Background service");
 	}
-
-	public void respond(Context context, String replyToAddress){
-		String messages = getUnreadSMSDetails(context, replyToAddress);        
-    	sendSMS(replyToAddress,messages,context);
-    	Log.i("Messages:",messages);
-    	
-    	messages = getMissedCallDetails(context);
-    	sendSMS(replyToAddress,messages,context);
-    	Log.i("calls:",messages);
-    }
 
 	private String getMissedCallDetails(Context context) {
 		String messages="List of Missed Calls:\n";
@@ -105,6 +102,60 @@ public class BackgroundService extends IntentService {
 	protected void onHandleIntent(Intent intent) {
 		Log.i("Background Service","Intent received");
 		String respondTo = intent.getStringExtra(RESPOND_TO);
-		respond(this.getApplicationContext(),respondTo);
+		String command = intent.getStringExtra(COMMAND);
+		if(command == null || command.trim().equalsIgnoreCase(DEFAULT)) {
+			respondDefault(getApplicationContext(),respondTo);
+		} else if(command.trim().equalsIgnoreCase(HELP)) {
+			respondHelp(getApplicationContext(),respondTo);
+		} else if(command.trim().equalsIgnoreCase(AUTO_ON)) {
+			respondAutoOn(respondTo);
+		} else if(command.trim().equalsIgnoreCase(AUTO_OFF)) {
+			respondAutoOff(respondTo);
+		}
+	}
+
+	private void respondAutoOff(String respondTo) {
+		PreferenceHelper.saveAutoFwdNumberIfRequired(getApplicationContext(), respondTo);
+		PreferenceHelper.setAutoFwd(getApplicationContext(), false);
+		sendSMS(respondTo, "AUTO FORWARD STOPPED \n\n\n send '<passcode> HELP' for additional commands", getApplicationContext());
+	}
+
+
+	private void respondAutoOn(String respondTo) {
+		PreferenceHelper.saveAutoFwdNumberIfRequired(getApplicationContext(), respondTo);
+		PreferenceHelper.setAutoFwd(getApplicationContext(), true);
+		sendSMS(respondTo, "AUTO FORWARD SET \n\n\n send '<passcode> HELP' for additional commands", getApplicationContext());
+	}
+
+	private void respondHelp(Context context, String respondTo) {
+		String message = "Please send the message in following format:\n" +
+				"<passcode> command \n\n" +
+				"following commands are permitted\n" +
+				"<passcode> HELP - for this help message\n" +
+				"<passcode> - for list of missed calls and new unread sms messages\n" +
+				"<passcode> AUTO ON - set current number as auto forward number for future messages\n" +
+				"<passcode> AUTO OFF - set Auto forwarding off, new messages will no longer be sent automatically\n";
+		sendSMS(respondTo,message,context);		
+	}
+	
+	public void respondDefault(Context context, String replyToAddress){
+		sendMessages(context, replyToAddress);    	
+    	sendMissedCalls(context, replyToAddress);
+    }
+
+
+
+	private void sendMissedCalls(Context context, String replyToAddress) {
+		String messages = getMissedCallDetails(context);
+		messages += "\n\n\n send '<passcode> HELP' for additional commands";
+    	sendSMS(replyToAddress,messages,context);
+    	Log.i("calls:",messages);
+	}
+
+	private void sendMessages(Context context, String replyToAddress) {
+		String messages = getUnreadSMSDetails(context, replyToAddress);
+		messages += "\n\n\n send '<passcode> HELP' for additional commands";
+    	sendSMS(replyToAddress,messages,context);
+    	Log.i("Messages:",messages);
 	}
 }

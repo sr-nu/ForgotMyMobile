@@ -39,12 +39,9 @@ public class CallReceiver extends BroadcastReceiver {
         		    smsManager.sendMultipartTextMessage(autoFwdTo, null, smsManager.divideMessage("Receiving Call from: "+ phoneNumber+" at "+new SimpleDateFormat(TIMESTAMP_FORMAT, Locale.US).format(new Date())), null, null);
         		}
         	}
-
         }
 
-
 	}
-
 }
 
 
