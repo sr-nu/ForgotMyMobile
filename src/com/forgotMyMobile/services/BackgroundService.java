@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import java.sql.Date;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import com.forgotMyMobile.helpers.PreferenceHelper;
+import com.forgotMyMobile.listeners.SmsReceiver;
 
 public class BackgroundService extends IntentService {
     private static final String TIMESTAMP_FORMAT = "dd/MM/yy hh:mm:ss";
@@ -29,6 +31,33 @@ public class BackgroundService extends IntentService {
 
 	public BackgroundService() {
 		super("Background service");
+	}
+	
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		Log.i("Background Service","Intent received");
+		String respondTo = intent.getStringExtra(RESPOND_TO);
+		String command = intent.getStringExtra(COMMAND);
+		
+		if(command != null && command.trim().equalsIgnoreCase(SmsReceiver.CTRL_MSG)) {
+			handleLoop(respondTo);
+			return;
+		}
+		
+		if(command == null || command.trim().equalsIgnoreCase(DEFAULT)) {
+			respondDefault(getApplicationContext(),respondTo);
+		} else if(command.trim().equalsIgnoreCase(HELP)) {
+			respondHelp(getApplicationContext(),respondTo);
+		} else if(command.trim().equalsIgnoreCase(AUTO_ON)) {
+			respondAutoOn(respondTo);
+		} else if(command.trim().equalsIgnoreCase(AUTO_OFF)) {
+			respondAutoOff(respondTo);
+		} 
+	}
+
+	private void handleLoop(String respondTo) {
+		PreferenceHelper.setAutoFwd(getApplicationContext(), false);
+		sendSMS(respondTo, "CANNOT SET AUTO FORWARD TO SAME NUMBER\nAUTO FORWARD STOPPED \n\n\n send '<passcode> HELP' for additional commands\n", getApplicationContext());		
 	}
 
 	private String getMissedCallDetails(Context context) {
@@ -98,33 +127,31 @@ public class BackgroundService extends IntentService {
     	}
     }
 
-	@Override
-	protected void onHandleIntent(Intent intent) {
-		Log.i("Background Service","Intent received");
-		String respondTo = intent.getStringExtra(RESPOND_TO);
-		String command = intent.getStringExtra(COMMAND);
-		if(command == null || command.trim().equalsIgnoreCase(DEFAULT)) {
-			respondDefault(getApplicationContext(),respondTo);
-		} else if(command.trim().equalsIgnoreCase(HELP)) {
-			respondHelp(getApplicationContext(),respondTo);
-		} else if(command.trim().equalsIgnoreCase(AUTO_ON)) {
-			respondAutoOn(respondTo);
-		} else if(command.trim().equalsIgnoreCase(AUTO_OFF)) {
-			respondAutoOff(respondTo);
-		}
-	}
+
 
 	private void respondAutoOff(String respondTo) {
-		PreferenceHelper.saveAutoFwdNumberIfRequired(getApplicationContext(), respondTo);
 		PreferenceHelper.setAutoFwd(getApplicationContext(), false);
 		sendSMS(respondTo, "AUTO FORWARD STOPPED \n\n\n send '<passcode> HELP' for additional commands", getApplicationContext());
 	}
 
 
 	private void respondAutoOn(String respondTo) {
-		PreferenceHelper.saveAutoFwdNumberIfRequired(getApplicationContext(), respondTo);
-		PreferenceHelper.setAutoFwd(getApplicationContext(), true);
-		sendSMS(respondTo, "AUTO FORWARD SET \n\n\n send '<passcode> HELP' for additional commands", getApplicationContext());
+		if(!sameAsThisPhoneNumber(respondTo)) {
+			PreferenceHelper.saveAutoFwdNumberIfRequired(getApplicationContext(), respondTo);
+			PreferenceHelper.setAutoFwd(getApplicationContext(), true);
+			sendSMS(respondTo, "AUTO FORWARD SET \n\n\n send '<passcode> HELP' for additional commands\n" +
+				SmsReceiver.CTRL_MSG, getApplicationContext());
+		} else {
+			sendSMS(respondTo, "CANNOT SET AUTO FORWARD TO SAME NUMBER! \n\n\n send '<passcode> HELP' for additional commands", getApplicationContext());
+		}
+	}
+	
+	private boolean sameAsThisPhoneNumber(String respondTo) {
+		TelephonyManager phoneManager = (TelephonyManager) 
+			    getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+			String phoneNumber = phoneManager.getLine1Number();
+			Log.e("BackgroundService", "Are same numbers:"+respondTo.equals(phoneNumber));
+			return respondTo.equals(phoneNumber);
 	}
 
 	private void respondHelp(Context context, String respondTo) {
@@ -134,7 +161,7 @@ public class BackgroundService extends IntentService {
 				"<passcode> HELP - for this help message\n" +
 				"<passcode> - for list of missed calls and new unread sms messages\n" +
 				"<passcode> AUTO ON - set current number as auto forward number for future messages\n" +
-				"<passcode> AUTO OFF - set Auto forwarding off, new messages will no longer be sent automatically\n";
+				"<passcode> AUTO OFF - set auto forwarding off, new messages will no longer be sent automatically\n";
 		sendSMS(respondTo,message,context);		
 	}
 	

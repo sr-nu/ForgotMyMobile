@@ -8,7 +8,6 @@ import com.forgotMyMobile.services.BackgroundService;
 public class CommandHandler {
 
 	public static void handleCommand(Context context, String fromNumber, String command) {
-		PreferenceHelper.saveAutoFwdNumberIfRequired(context, fromNumber);
 		delegateToService(context, fromNumber,command);
 	}
 

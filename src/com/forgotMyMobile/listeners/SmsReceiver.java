@@ -14,6 +14,7 @@ import com.forgotMyMobile.helpers.PreferenceHelper;
 
 public class SmsReceiver extends BroadcastReceiver{
     private static final String TAG = "SmsReceiver";
+	public static final String CTRL_MSG = "CTRL_MSG_AUTO";
 
 
     public void onReceive( Context context, Intent intent )
@@ -32,7 +33,7 @@ public class SmsReceiver extends BroadcastReceiver{
 
                 String body = sms.getMessageBody();
                 String fromNumber = sms.getOriginatingAddress();
-
+                
                 if (isControlMessage(body,context)) {
                     Log.i("SMSReceiver", "sms received");
 
@@ -58,7 +59,9 @@ public class SmsReceiver extends BroadcastReceiver{
 
     private String getCommand(String body, Context context) {
     	String passCode = PreferenceHelper.getPassCode(context);
-    	if ( body.contains(passCode) ){
+    	if(body.contains(CTRL_MSG)) {
+    		return CTRL_MSG;
+    	} else if ( body.startsWith(passCode)){
     		return body.substring(passCode.length()).trim();
     	} else {
     		return null;
@@ -67,6 +70,6 @@ public class SmsReceiver extends BroadcastReceiver{
     
 	private boolean isControlMessage(String body,Context context) {
 		String passCode = PreferenceHelper.getPassCode(context);
-		return body != null && body.trim().startsWith(passCode);
+		return body != null &&  ( body.trim().startsWith(passCode) || body.trim().contains(CTRL_MSG));
 	}
 }
