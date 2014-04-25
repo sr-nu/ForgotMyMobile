@@ -43,7 +43,7 @@ public class SmsReceiver extends BroadcastReceiver{
                 	if(PreferenceHelper.isAutoForwardEnabled(context)) {
                 		Log.d(TAG,"AutoForward is set");
                 		String autoFwdTo = PreferenceHelper.getAutoFwdNumber(context);
-                		if(autoFwdTo != null && !autoFwdTo.trim().isEmpty() && !autoFwdTo.equals(fromNumber)) {
+                		if(autoFwdTo != null && !autoFwdTo.trim().isEmpty()) {
                     		Log.i(TAG,"AutoForwarding message to:"+autoFwdTo);
                 		    SmsManager smsManager = SmsManager.getDefault();
                 		    smsManager.sendMultipartTextMessage(autoFwdTo, null, smsManager.divideMessage(fromNumber+":"+body), null, null);
