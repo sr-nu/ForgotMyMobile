@@ -56,8 +56,10 @@ public class BackgroundService extends IntentService {
 	}
 
 	private void handleLoop(String respondTo) {
-		PreferenceHelper.setAutoFwd(getApplicationContext(), false);
-		sendSMS(respondTo, "CANNOT SET AUTO FORWARD TO SAME NUMBER\nAUTO FORWARD STOPPED \n\n\n send '<passcode> HELP' for additional commands\n", getApplicationContext());		
+        if(PreferenceHelper.isAutoForwardEnabled(getApplicationContext())) {
+            PreferenceHelper.setAutoFwd(getApplicationContext(), false);
+            sendSMS(respondTo, "CANNOT SET AUTO FORWARD TO SAME NUMBER\nAUTO FORWARD STOPPED \n\n\n send '<passcode> HELP' for additional commands\n", getApplicationContext());
+        }
 	}
 
 	private String getMissedCallDetails(Context context) {
