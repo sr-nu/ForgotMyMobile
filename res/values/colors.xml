@@ -2,4 +2,5 @@
 <resources>
     <color name="grey">#8C8B88</color>
     <color name="text_color">#E3E3E3</color>
+    <color name="subtext_color">#888888</color>
 </resources>

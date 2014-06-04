@@ -20,8 +20,8 @@
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="3dp"
 	        android:layout_marginRight="3dp"
-	        android:layout_marginTop="50dp"
-	        android:layout_marginBottom="50dp">
+	        android:layout_marginTop="30dp"
+	        android:layout_marginBottom="30dp">
 	        <TableRow>
 			    <TextView android:id="@+id/passcodeLbl"
 			        	  android:text="@string/passcode"
@@ -31,19 +31,31 @@
 			        	  android:layout_width="wrap_content"
 			        	  android:layout_marginRight="5dp"
 			        	  />
-			    <EditText android:id="@+id/passcode" 
-			        	  android:layout_weight="1"
+			    <EditText android:id="@+id/passcode"
 			        	  android:ems="10"
 			        	  android:layout_height="wrap_content"
 			              android:layout_width="fill_parent"
 			              android:inputType="number"
-			              android:layout_marginTop="20dp"
+			              android:layout_marginTop="10dp"
 			              android:layout_margin="2dip" 
 			              android:singleLine="true"
 			              android:selectAllOnFocus="true"
 			              android:hint="@string/passcodeHint"/>
-			 </TableRow>
-			 <TableRow>
+			</TableRow>
+            <TableRow>
+                <TextView android:id="@+id/desc"
+                    android:text="@string/desc"
+                    android:layout_span="2"
+                    android:minHeight="40dp"
+                    android:textSize="12sp"
+                    android:textColor="@color/subtext_color"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    />
+            </TableRow>
+			<TableRow>
 				 <TextView android:id="@+id/autoFwdLbl"
 	          	 android:text="@string/enableAutoFwd"
 	          	 android:layout_height="wrap_content"
@@ -55,12 +67,12 @@
 	          	 android:layout_width="wrap_content"
                  android:visibility="invisible"
                      />
-			 </TableRow>
+			</TableRow>
 	    </TableLayout>
 	   	<Button android:id="@+id/savePreferences"
 	        	android:layout_height="wrap_content"
 	        	android:layout_width="match_parent"
-	        	android:layout_marginTop="20dp"
+	        	android:layout_marginTop="10dp"
 	        	android:layout_marginBottom="20dp" 
 	        	android:layout_marginLeft="3dp"
 	        	android:layout_marginRight="3dp"        	

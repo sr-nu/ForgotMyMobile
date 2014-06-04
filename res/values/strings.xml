@@ -13,4 +13,6 @@
     <string name="info">Info</string>
     <string name="help">Help</string>
     <string name="ok">OK</string>
+    <string name="desc">(to retrieve unread sms and missed calls, sms the above passcode from any mobile)</string>
+    <!--<string name="desc">test</string>-->
 </resources>
